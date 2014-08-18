@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>flip-card Demo</title>
+
+  <script src="../platform/platform.js"></script>
+  <link rel="import" href="flip-card.html">
+  <style>
+    front {
+      color: red;
+    }
+  </style>
+
+</head>
+<body unresolved>
+
+  <p>A `flip-card` looks like this:</p>
+
+  <flip-card>
+    <front>Front of card</front>
+    <back>Back of card</back>
+  </flip-card>
+
+  <p>You can also rotate vertically by providing `axis="x"`:</p>
+
+  <flip-card axis="x">
+    <front>Front of card</front>
+    <back>Back of card</back>
+  </flip-card>
+
+</body>
+</html>

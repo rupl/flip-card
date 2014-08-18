@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  width: 200px;
+  height: 200px;
+  -webkit-perspective: 600px;
+          perspective: 600px; }
+
+::content front, ::content back {
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  padding-top: 1em;
+  border: 1px solid #000;
+  color: #fff;
+  font-size: 3em;
+  text-align: center;
+  text-shadow: -1px -1px rgba(0, 0, 0, 0.4);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transition: all 0.5s ease-in-out;
+          transition: all 0.5s ease-in-out; }
+
+::content front {
+  background: #888;
+  -webkit-transform: rotateY(0) rotateX(0);
+          transform: rotateY(0) rotateX(0); }
+
+::content back {
+  background: #444;
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg); }
+
+:host(:hover) ::content front {
+  background: #444;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg); }
+
+:host(:hover) ::content back {
+  background: #888;
+  -webkit-transform: rotateY(0);
+          transform: rotateY(0); }
+
+:host([axis="x"]) ::content back {
+  background: #444;
+  -webkit-transform: rotateX(-180deg);
+          transform: rotateX(-180deg); }
+
+:host([axis="x"]:hover) ::content front {
+  background: #444;
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg); }
+
+:host([axis="x"]:hover) ::content back {
+  background: #888;
+  -webkit-transform: rotateX(0);
+          transform: rotateX(0); }
