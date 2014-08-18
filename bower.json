@@ -10,7 +10,7 @@
   ],
   "main": "flip-card.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.3.5"
+    "polymer": "~0.3.5"
   },
   "homepage": "https://github.com/rupl/flip-card",
   "authors": [
