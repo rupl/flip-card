@@ -6,12 +6,20 @@ must support CSS 3D Transforms in order for it to work properly. Useful for
 bios, service listings, and other situations where you might want to rely on
 user interest/interaction before showing more content.
 
-##### Example
+#### Example
 
     <flip-card axis="x">
       <front>Front of card</front>
       <back>Back of card</back>
     </flip-card>
+
+#### Options
+
+An `axis` attribute can be added directly to the `<flip-card>` element. At this
+time there are only two options:
+
+* `y` axis is default. It's what you typically see. The card flips left to right.
+* `x` axis means it turns upside-down while it flips.
 
 @element flip-card
 @blurb Provides a two-sided card that flips over in 3D space.
