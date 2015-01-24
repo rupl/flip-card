@@ -10,11 +10,13 @@
   ],
   "main": "flip-card.html",
   "dependencies": {
-    "polymer": "~0.3.5"
+    "polymer": "Polymer/polymer#^0.5.1",
+    "webcomponentsjs": "~0.5.4"
   },
   "homepage": "https://github.com/rupl/flip-card",
   "authors": [
-    "Chris Ruppel <chris.ruppel@gmail.com>"
+    "Chris Ruppel <chris.ruppel@gmail.com>",
+    "Will Hoag <dev@willhoag.com>"
   ],
   "description": "A Polymer element that uses CSS 3D Transforms to create the classic two-sided flip card.",
   "license": "MIT",
