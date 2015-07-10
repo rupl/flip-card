@@ -1,6 +1,6 @@
 {
   "name": "flip-card",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "keywords": [
     "seed",
     "polymer",
@@ -10,8 +10,11 @@
   ],
   "main": "flip-card.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5.1",
-    "webcomponentsjs": "~0.5.4"
+    "polymer": "Polymer/polymer#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
   },
   "homepage": "https://github.com/rupl/flip-card",
   "authors": [
