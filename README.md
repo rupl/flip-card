@@ -16,7 +16,7 @@ You can put whatever markup you want inside the `<front>` and `<back>` tags.
 ```html
 <flip-card axis="x" nohover flipped="{{flipped}}">
   <front>Front of card</front>
-  <back>Back of card</back>
+  <back><my-element></my-element></back>
 </flip-card>
 <input type="checkbox" checked="{{flipped::changed}}">flip
 
@@ -40,9 +40,7 @@ You can put whatever markup you want inside the `<front>` and `<back>` tags.
 * `y` axis is what you typically see. It flips left to right. The `<flip-card>` defaults to Y if you omit the attribute.
 * `x` axis means it turns upside-down while it flips.
 
-`noHover`: 
-
-To disable the auotomatic flipping on mouseover add the `noHover` attribute. The card can be flipped using either one of the methods below, data-binding or firing an event.
+`noHover`: To disable the auotomatic flipping on mouseover add the `noHover` attribute. The card can be flipped using either one of the methods below, data-binding or firing an event.
 
 
 ## Methods
