@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Polymer &lt;flip-card&gt; demo</title>
+  <meta name="description" content="A demo of CSS 3D flip cards using Polymer, the Web Components polyfill.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="demo.css">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../flip-card.html">
+</head>
+<style>
+
+    flip-card front {
+        background: #888;
+        border: 1px solid #000;
+        padding-top: 1em;
+    }
+    flip-card back {
+        background: #444;
+        border: 1px solid #000;
+        padding-top: 1em;
+    }
+    
+    flip-card {
+        width:200px;
+        height:200px;
+        color: #fff;
+        font-size: 3em;
+        text-align: center;
+        text-shadow: -1px -1px rgba(0, 0, 0, 0.4);
+    }
+</style>
+<body unresolved>
+    <template is="dom-bind">
+        <div class="hero-unit">
+            <h2>3D <code>&lt;flip-card></code> element</h2>  
+            <p>Mouseover the cards to flip them over</p>
+            <flip-card>
+            <front>Y axis</front>
+            <back>Heyo!</back>
+            </flip-card>
+
+            <br>
+            <flip-card axis="x">
+            <front>Y axis</front>
+            <back>Heyo!</back>
+            </flip-card>
+
+            <h2>Sample code</h2>
+            <pre><code>&lt;flip-card axis="y">
+  &lt;front>Y axis&lt;/front>
+  &lt;back>Heyo!&lt;/back>
+&lt;/flip-card></code></pre>
+
+
+            <p>It is also possible to disable the flip on hover and programtically flip the cards by adding the <b>nohover</b> attribute and using databinding or the JS API</p>
+            <flip-card nohover flipped="{{flipped}}">
+            <front>Y axis</front>
+            <back>Heyo!</back>
+            </flip-card>
+            
+            <input type="checkbox" checked="{{flipped::change}}"> flip
+            
+            <h2>Sample code</h2>
+            <pre><code>&lt;flip-card axis="y" nohover>
+  &lt;front>Y axis&lt;/front>
+  &lt;back>Heyo!&lt;/back>
+&lt;/flip-card>
+</code></pre>
+
+            <h2>Installation</h2>
+
+            <p>Via bower:</p>
+            <pre><code>bower install flip-card</code></pre>
+
+            <p>Via git:</p>
+            <pre><code>git clone https://github.com/rupl/flip-card.git</code></pre>
+
+            <h2>Further reading</h2>
+            <ul>
+            <li><a href="http://rupl.github.io/flip-card/components/flip-card/">Docs for <code>&lt;flip-card></code> element</a></li>
+            <li><a href="http://css3playground.com/3d-flip-cards/">Original CSS 3D flip card demo</a></li>
+            <li><a href="http://www.polymer-project.org/">Polymer Project</a></li>
+            </ul>
+        </div>
+
+        <p class="credits">
+            <code>&lt;flip-card></code> element made with <span class="heart">❤</span> by <a href="http://chrisruppel.com">Chris Ruppel</a>.<br>
+            You can view the <a href="https://github.com/rupl/flip-card">source on GitHub</a>.<br>
+            All other code is licensed separately by authors.
+        </p>
+    </template>
+</body>
+</html>
+  

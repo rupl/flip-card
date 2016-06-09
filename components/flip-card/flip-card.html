@@ -1,0 +1,223 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+Flip Card provides drop-in support for CSS 3D cards that flip over. Your browser
+must support CSS 3D Transforms in order for it to work properly. Useful for
+bios, service listings, and other situations where you might want to rely on
+user interest/interaction before showing more content.
+
+Example
+
+    <flip-card axis="x">
+      <front>Front of card</front>
+      <back>Back of card</back>
+    </flip-card>
+
+Options
+
+An `axis` attribute can be added directly to the `<flip-card>` element. At this
+time there are only two options:
+
+* `y` axis is default. It's what you typically see. The card flips left to right.
+* `x` axis means it turns upside-down while it flips.
+
+A `nohover` attribute will disable the flipping on mouseover. The card can then be flipped using
+databinding or the by calling `toggle()`, `showBack` or `showFront`
+
+Example
+
+    <flip-card axis="x" nohover flipped="{{flipped}}">
+      <front>Front of card</front>
+      <back>Back of card</back>
+    </flip-card>
+    <input type="checkbox" checked="{{flipped::changed}}">flip
+    
+    <script>
+      // Just flip
+      document.querySelector('flip-card').toggle();
+      // show the back
+      document.querySelector('flip-card').showBack();
+      // show the front
+      document.querySelector('flip-card').showFront();
+    </script>
+
+Another way to reveal the front or back is by firing a `show` event by a lightDOM child that is either part of the 
+`front` or `back`. The corresponding side will be revealed. 
+
+ Example
+
+    <flip-card axis="x" nohover flipped="{{flipped}}">
+      <front>Front of card</front>
+      <back><my-element></my-element></back>
+    </flip-card>
+    
+    <script>
+      document.querySelector('my-element').fire('show'); // will reveal the back side 
+    </script>
+    
+
+@demo
+@homepage http://rupl.github.io/flip-card
+-->
+<dom-module id="flip-card">
+  <template>
+    <style>
+      :host {
+        -webkit-perspective: 600px;
+                perspective: 600px;
+        
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: block;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        -o-transform-style: preserve-3d;
+        transform-style: preserve-3d; 
+      }
+
+      .wrapper > ::content front, ::content back {
+        display: block;
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+        -webkit-transition: -webkit-transform 0.5s ease-in-out;
+                transition: all 0.5s ease-in-out; 
+      }
+
+      .wrapper > ::content front {
+        -webkit-transform: rotateY(0) rotateX(0);
+                transform: rotateY(0) rotateX(0); }
+
+      .wrapper > ::content back {
+        -webkit-transform: rotateY(-180deg);
+                transform: rotateY(-180deg); }
+
+      :host([flipped]) .wrapper > ::content front {
+        -webkit-transform: rotateY(180deg);
+                transform: rotateY(180deg); }
+
+      :host([flipped]) .wrapper > ::content back {
+        -webkit-transform: rotateY(0);
+                transform: rotateY(0); }
+
+      :host([axis="x"]) .wrapper > ::content back {
+        -webkit-transform: rotateX(-180deg);
+                transform: rotateX(-180deg); }
+
+      :host([axis="x"][flipped]) .wrapper > ::content front {
+        -webkit-transform: rotateX(180deg);
+                transform: rotateX(180deg); }
+
+      :host([axis="x"][flipped]) .wrapper > ::content back {
+        -webkit-transform: rotateX(0);
+                transform: rotateX(0); }
+    </style>
+    <div class="wrapper" on-show="_onShow">
+      <content select="front" ></content>
+      <content select="back" ></content>
+     </div>
+  </template>
+  
+  <script>
+    Polymer({
+      is: 'flip-card',
+      
+      /**
+       * Fired after the flipping animation finishes.
+       *
+       * @event flipend
+       */
+
+      properties: {
+      
+        /**
+         * A boolean flag that specifies if the card should be flipped or not. 
+         * This property notifies and thus can be used for two way binding. 
+         * It also reflects back as an attribute which allows the user to apply custom styling.
+         */
+        flipped: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true,
+          notify: true,
+        },
+        
+        /**
+         * If set to `true` the card won't flip automatically when the mouse moves over it.
+         * This can be useful if the card should be flipped programatically through data-binding or 
+         * the JS API.
+         */
+        nohover: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true,
+        } 
+      },
+      listeners: {
+        'transitionend':'_onTransitionEnd',
+        'mouseenter': '_onMouseOver',
+        'mouseleave': '_onMouseOut',
+      },
+      
+      /**
+       * Flips the card 
+       */
+      toggle: function() {
+        this.flipped = !this.flipped;  
+      },
+      
+      /**
+       * Shows the front of the card
+       */
+      showFront: function() {
+        this.flipped = false;
+      },
+      
+      /**
+       * Shows the back of the card
+       */
+      showBack: function() {
+        this.flipped = true;
+      },
+      _onTransitionEnd: function(e) {
+        var target = Polymer.dom(e).currentTarget;
+        if (target !== Polymer.dom(this).node) {
+            this.debounce('flipend',function() {
+              this.fire('flipend');
+            },10);
+        }
+      },
+      _onMouseOver: function(e) {
+         if (this.nohover) {
+           return;
+         }
+         this.showBack();
+      },
+      _onMouseOut: function(e) {
+        if (this.nohover) {
+           return;
+         }
+         this.showFront();
+      },
+      _onShow: function(e) {
+        var target = Polymer.dom(e).localTarget;
+        if (target.select === 'front') {
+          this.showFront();
+        }
+        else if (target.select === 'back') {
+          this.showBack();
+        }
+      },
+    });
+  </script>
+</dom-modul>
